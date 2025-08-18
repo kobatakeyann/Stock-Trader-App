@@ -5,8 +5,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import org.springframework.stereotype.Component;
 import com.suu.hppa.summer_training.presentation.cli.controller.HomeMenuController;
-import com.suu.hppa.summer_training.presentation.cli.router.HomeMenuRouter;
-import com.suu.hppa.summer_training.presentation.cli.viewmodel.Menu;
+import com.suu.hppa.summer_training.presentation.cli.dto.ExecutableMenuItem;
 
 @Component
 public class HomeMenuView {
@@ -14,28 +13,30 @@ public class HomeMenuView {
     private final HomeMenuController homeMenuController;
     private final List<String> menuLabels;
 
-    public HomeMenuView(HomeMenuController homeMenuController, HomeMenuRouter homeMenuRouter) {
+    public HomeMenuView(HomeMenuController homeMenuController) {
         this.homeMenuController = homeMenuController;
-        this.menuLabels = homeMenuRouter.getMenuLabels();
+        this.menuLabels = homeMenuController.getMenuLables();
     }
 
-    public void show() {
-        System.out.println("株式取引管理システムを開始します");
+    public void render() {
         while (true) {
             System.out.println("操作するメニューを選んでください。");
             this.menuLabels.stream().forEach(System.out::println);
 
             System.out.print("入力してください: ");
             String userInput = this.stdInScanner.nextLine().trim();
-            Optional<Menu> selectedMenu = homeMenuController.findRenderer(userInput);
 
-            if (selectedMenu.isPresent()) {
-                Menu targetMenu = selectedMenu.get();
-                System.out.printf("「%s」が選択されました。%n", targetMenu.name());
-                targetMenu.renderer().run();
-            } else {
+            Optional<ExecutableMenuItem> selectedMenuProvider =
+                    this.homeMenuController.findExecutableMenuItem(userInput);
+            if (selectedMenuProvider.isEmpty()) {
                 System.out.println(userInput + "に対応するメニューは存在しません。");
+                continue;
             }
+            String selectedMenuName = selectedMenuProvider.get().menu().name();
+            Runnable renderer = selectedMenuProvider.get().renderer();
+
+            System.out.printf("「%s」が選択されました。%n", selectedMenuName);
+            renderer.run();
             System.out.println("---");
         }
     }

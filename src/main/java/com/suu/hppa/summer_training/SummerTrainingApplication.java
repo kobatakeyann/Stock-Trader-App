@@ -4,14 +4,14 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.suu.hppa.summer_training.presentation.cli.view.HomeMenuView;
+import com.suu.hppa.summer_training.presentation.cli.controller.CliAppController;
 
 @SpringBootApplication
 public class SummerTrainingApplication implements ApplicationRunner {
-	private final HomeMenuView homeMenuView;
+	private final CliAppController appController;
 
-	public SummerTrainingApplication(HomeMenuView homeMenuView) {
-		this.homeMenuView = homeMenuView;
+	public SummerTrainingApplication(CliAppController appController) {
+		this.appController = appController;
 	}
 
 	public static void main(String[] args) {
@@ -20,6 +20,6 @@ public class SummerTrainingApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
-		this.homeMenuView.show();
+		this.appController.start();
 	}
 }
