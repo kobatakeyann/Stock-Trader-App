@@ -25,6 +25,7 @@ public class HomeMenuView {
 
             System.out.print("入力してください: ");
             String userInput = this.stdInScanner.nextLine().trim();
+            System.out.println(userInput);
 
             Optional<ExecutableMenuItem> selectedMenuProvider =
                     this.homeMenuController.findExecutableMenuItem(userInput);

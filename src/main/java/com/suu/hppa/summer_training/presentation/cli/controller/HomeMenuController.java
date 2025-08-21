@@ -22,7 +22,7 @@ public class HomeMenuController {
     public Optional<ExecutableMenuItem> findExecutableMenuItem(String keyAlphabet) {
         Optional<Menu> menu = this.findMenu(keyAlphabet);
         Optional<Runnable> renderer = this.findRenderer(keyAlphabet);
-        if (menu.isPresent() || renderer.isPresent()) {
+        if (menu.isPresent() && renderer.isPresent()) {
             return Optional.of(new ExecutableMenuItem(menu.get(), renderer.get()));
         }
         return Optional.empty();
