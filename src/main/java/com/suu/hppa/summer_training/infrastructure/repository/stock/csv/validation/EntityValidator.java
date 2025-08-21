@@ -20,7 +20,7 @@ public class EntityValidator {
         if (CSV_CAMEL_COLUMNS.equals(entityColNames)) return;
         throw new IllegalStateException(
                 "Entity class: " + recordEntityClass.getName()
-                        + "Record parameters of are not consistent with csv column order."
+                        + "Record parameters are not consistent with csv column order."
         );
     }
 

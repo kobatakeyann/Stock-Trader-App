@@ -14,7 +14,7 @@ public class CsvValidator {
     public static void checkIfCsvExists() {
         if (csvResource.exists()) return;
         throw new RuntimeException(
-                "Csv file does not exits at expected path: " + CsvSpecification.FILEPATH
+                "Csv file does not exist at expected path: " + CsvSpecification.FILEPATH
         );
     }
 
