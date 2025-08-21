@@ -51,7 +51,7 @@ public class CsvStockRepository implements StockRepository {
                     .skip(1) // skip header line
                     .map(line -> StockEntity.fromCsvLine(line, CsvSpecification.CSV_DELIMITER))
                     .map(StockEntity::toModel)
-                    .filter(record -> new Ticker(record.ticker()).equals(ticker))
+                    .filter(record -> record.ticker().equals(ticker.value()))
                     .findFirst();
         } catch (IOException e) {
             throw new RuntimeException("Failed to read csv file.", e);
