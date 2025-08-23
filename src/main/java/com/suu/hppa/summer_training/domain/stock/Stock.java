@@ -1,5 +1,11 @@
 package com.suu.hppa.summer_training.domain.stock;
 
+import com.suu.hppa.summer_training.domain.stock.exception.StockValidationException;
+import com.suu.hppa.summer_training.domain.stock.valueobject.Market;
+import com.suu.hppa.summer_training.domain.stock.valueobject.SharesIssued;
+import com.suu.hppa.summer_training.domain.stock.valueobject.StockName;
+import com.suu.hppa.summer_training.domain.stock.valueobject.Ticker;
+
 public class Stock {
     private final Ticker ticker;
     private final StockName name;
@@ -15,6 +21,22 @@ public class Stock {
         this.name = name;
         this.market = market;
         this.sharesIssued = sharesIssued;
+    }
+
+    public static Stock fromString(
+            String tickerStr,
+            String nameStr,
+            String marketStr,
+            String sharesIssuedStr) throws StockValidationException {
+        try {
+            Ticker ticker = new Ticker(tickerStr);
+            StockName stockName = new StockName(nameStr);
+            Market market = Market.fromStr(marketStr);
+            SharesIssued sharesIssued = SharesIssued.fromStr(sharesIssuedStr);
+            return new Stock(ticker, stockName, market, sharesIssued);
+        } catch (IllegalArgumentException e) {
+            throw new StockValidationException(e);
+        }
     }
 
     @Override

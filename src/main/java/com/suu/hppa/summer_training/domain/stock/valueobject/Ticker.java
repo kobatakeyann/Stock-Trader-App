@@ -1,4 +1,4 @@
-package com.suu.hppa.summer_training.domain.stock;
+package com.suu.hppa.summer_training.domain.stock.valueobject;
 
 import java.util.Set;
 
