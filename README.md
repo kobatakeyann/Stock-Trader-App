@@ -119,5 +119,5 @@ DDD に基づいて設計した CLI アプリケーションです。
 ## アプリケーションの起動
 
 ```bash
-gradle run
+gradle bootrun --console=plain
 ```
